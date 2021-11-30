@@ -1,7 +1,7 @@
 <?php
 
-/* function autoloadModel($classname){
+ function autoloadModel($classname){
     require_once 'Model/' . $classname . 'Model.php';
 }
 
-spl_autoload_register('autoloadModel'); */
+spl_autoload_register('autoloadModel'); 

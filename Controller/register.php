@@ -17,7 +17,7 @@ class register /* extends Controller  */
     {
         return "hola " . $usu . " " .$clave ;
     }
-    public function insert(string $first,string $pass)
+    public function insert(string $nombres, string $apellidos, string $email, string $usuario, string $clave)
     {
 
         /* $first = $_POST['nombres'];
@@ -32,7 +32,7 @@ class register /* extends Controller  */
         $user->setemail($email);
         $user->setUsuario($usuario);
         $user->setClave($clave) */;
-        $save = $user->insert($first,$pass);
+        $save = $user->insert($nombres,$apellidos,$email,$usuario,$clave);
         /* var_dump($save); */
         return  $save;
 

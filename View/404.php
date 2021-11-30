@@ -10,13 +10,13 @@
                 <h1 class="display-1 mb-0 text-center">404</h1>
               </div>
               <div class=" error-page-divider text-center">
-                <h2>SORRY!</h2>
-                <h3 class="font-weight-light">The page you’re looking for was not found.</h3>
+                <h2>Error</h2>
+                <h3 class="font-weight-light">La página que buscas no existe</h3>
               </div>
             </div>
             <div class="row mt-5">
               <div class="col-12 text-center mt-xl-2">
-                <a class="text-white font-weight-medium" href="<?php echo base_url;?>">Back to home</a>
+                <a class="text-white font-weight-medium" href="<?php echo base_url;?>">Regresar</a>
               </div>
             </div>
             

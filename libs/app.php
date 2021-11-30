@@ -12,9 +12,9 @@ class App
         /* var_dump($url[0]); */
         //cuando ingresamos sin definir controlador
         if (empty($url[0])) {
-            $archivoController = 'Controller/Home.php';
+            $archivoController = 'Controller/Login.php';
             require_once $archivoController;
-            $controller = new Home;
+            $controller = new Login;
             /*con esto quiero decir que loadModel cargara el modelo de la url[0]*/
             /* var_dump($controller); */
             $controller->render();
@@ -31,9 +31,11 @@ class App
 
             //inicializa el controlador
             $controller = new $url[0];
+            /* var_dump($url[1]); */
+            if (isset($url[1]) && $url[1] !== '') {
 
-            if (isset($url[1])) {
                 if (method_exists($controller, $url[1])) {
+
                     if (isset($url[2])) {
                         //el método tiene parámetros
                         //sacamos e # de parametros
@@ -50,17 +52,16 @@ class App
                         $controller->{$url[1]}();
                     }
                 } else {
-                    $controller = new Errores();
-                    /* $controller->render(); */
+
+                    header('Location:' . base_url . "404");
                 }
             } else {
                 $controller->render();
             }
         } else {
-            /* echo "mal"; */
-            /* $errores = new $url[0];*/
-             $controller = new Errores; 
-             $errores->render();  
+
+            $controller = new Errores;
+            $controller->render();
         }
     }
 }

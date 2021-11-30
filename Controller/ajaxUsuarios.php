@@ -1,9 +1,6 @@
 
-
 <?php
 
-require_once "Controller/register.php";
-require_once "Model/RegistroModel.php";
 class ajaxUsuarios
 {
     public function __construct()
@@ -11,28 +8,37 @@ class ajaxUsuarios
     }
     public function render()
     {
-        $data = $_POST;
-        $userRegister = new Register;
-        /* foreach($data as $d){
-            $dataNonbbres = $d['nombres'];
-        }
-        echo json_encode($dataNonbbres); */
-        $nombres = $data['usuario'];
-        $ape = $data['password'];
-        /* echo json_encode($nombres,$ape);  
-         die();  */
-        $insert = $userRegister->insert($nombres, $ape);
-        echo json_encode($insert);
     }
-    public function saludar()
+    public function insert()
     {
         $data = $_POST;
         $userRegister = new Register;
-        $nombres = $data['usuario'];
-        $ape = $data['password'];
-        /* echo json_encode($nombres,$ape);  
-         die();  */
-        $insert = $userRegister->saludar($nombres, $ape);
+        $nombres = $data['nombres'];
+        $apellidos = $data['apellidos'];
+        $email = $data['email'];
+        $usuario = $data['usuario'];
+        $password = $data['password'];
+        $insert = $userRegister->insert($nombres, $apellidos, $email, $usuario, $password);
         echo json_encode($insert);
+    }
+    function login()
+    {
+        $data = $_POST;
+        $userLogin = new Login();
+        $usuario = $data['user'];
+        $password = $data['pass'];
+        $login = $userLogin->login($usuario, $password);
+        if (is_array($login)) {
+            $_SESSION['user'] = $usuario;
+            echo json_encode($login);
+            
+        } else {
+            echo json_encode($login);
+             
+        }
+    }
+    function logout(){
+        $destroy = session_destroy();
+        echo json_encode($destroy);
     }
 }

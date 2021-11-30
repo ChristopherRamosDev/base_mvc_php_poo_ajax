@@ -14,10 +14,10 @@
               <h4 class="font-weight-light">Inicia sesión para continuar</h4>
               <form class="pt-3" method="POST" id="fromLoginUser">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" name="user" id="user" placeholder="Username">
+                  <input type="text" class="form-control form-control-lg" name="user" id="user" placeholder="Usuario">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" name="pass" id="pass" placeholder="Password">
+                  <input type="password" class="form-control form-control-lg" name="pass" id="pass" placeholder="Clave">
                 </div>
                 <button  class="btn btn-block btn-primary p-3" type="submit" id="btnLogin">
                       INICIAR SESIÓN

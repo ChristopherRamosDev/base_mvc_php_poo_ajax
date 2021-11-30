@@ -40,23 +40,29 @@ class LoginModel
 
     public function hashPass($pass)
     {
-        $hashPassword = password_hash($pass,PASSWORD_DEFAULT);
+        $hashPassword = password_hash($pass, PASSWORD_DEFAULT);
         return $hashPassword;
     }
 
 
-    public function login()
-    {     
-        $usuario = $this->getUsuario();
-        $clave = $this->getPass();       
+    public function login(string $usuario, string $clave)
+    {
+        /* $usuario = $this->getUsuario();
+        $clave = $this->getPass();     */
         try {
             $this->query = "SELECT * FROM users where user = ? and pass = ?";
-             $stmt = $this->conn->prepare($this->query); 
-             $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
             $stmt->bindValue(2, $clave, PDO::PARAM_STR);
             $stmt->execute();
-             /* var_dump($this->query);  */
-            return $stmt->fetchAll();
+
+            
+            $count = $stmt->rowCount();
+            if( $count > 0){
+                return $stmt->fetchAll();
+            }else{
+                return "No existe el usuario o la contraseña es incorrecta";
+            }
         } catch (Exception $e) {
             echo $e->getTraceAsString();
         }

@@ -70,7 +70,7 @@ class RegistroModel
     }
 
 
-    public function insert($first,$pass)
+    public function insert(string $nombres, string $apellidos, string $email, string $usuario, string $clave)
     {
         /* $firstName = $this->getfirstName();
         $lastName = $this->getlastName();
@@ -79,12 +79,16 @@ class RegistroModel
         $clave = $this->getPass();
         $hashedPass = $this->hashPass($clave); */
         try {
-            $val = $this->query = "INSERT INTO users(`user`,`pass`,`rolID`) VALUES ('$first', '$pass',2)";
-            /* $stmt = $this->conn->prepare($this->query); 
-             $stmt->bindValue(1, $first, PDO::PARAM_STR);
-            $stmt->bindValue(2, 2, PDO::PARAM_INT);  */
+            $this->query = "INSERT INTO users(`nombres`,`apellidos`,`correo`,`user`,`pass`,`rolID`) VALUES (?,?,?,?,?,?)";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->bindValue(1, $nombres, PDO::PARAM_STR);
+            $stmt->bindValue(2, $apellidos, PDO::PARAM_STR);
+            $stmt->bindValue(3, $email, PDO::PARAM_STR);
+            $stmt->bindValue(4, $usuario, PDO::PARAM_STR);
+            $stmt->bindValue(5, $clave, PDO::PARAM_STR);
+            $stmt->bindValue(6, 2, PDO::PARAM_INT);
             /* var_dump($this->query);  */
-            return $this->conn->exec($val);
+            return $stmt->execute();
         } catch (Exception $e) {
             echo $e->getTraceAsString();
         }
