@@ -7,8 +7,11 @@ class App
     {
 
         $url = isset($_GET['url']) ? $_GET['url'] : null;
-        $url = rtrim($url, '/');
+        /* $url = rtrim($url, '/'); */
+
         $url = explode('/', $url);
+        /* var_dump($url);
+        die(); */
         /* var_dump($url[0]); */
         //cuando ingresamos sin definir controlador
         if (empty($url[0])) {
@@ -24,15 +27,18 @@ class App
         }
         $archivoController = 'Controller/' . $url[0] . '.php';
         /* $archivoControllersss = 'Controllers/' . $url[0] . '.php/'; */
-
+        /* var_dump($archivoController); */
         if (file_exists($archivoController)) {
             require_once $archivoController;
 
 
             //inicializa el controlador
             $controller = new $url[0];
+            /* var_dump($controller);
+            die(); */
             /* var_dump($url[1]); */
-            if (isset($url[1]) && $url[1] !== '') {
+
+            if (isset($url[1])) {
 
                 if (method_exists($controller, $url[1])) {
 
@@ -53,9 +59,11 @@ class App
                     }
                 } else {
 
-                    header('Location:' . base_url . "404");
+                    $controller = new Errores;
+                    $controller->render();
                 }
             } else {
+
                 $controller->render();
             }
         } else {

@@ -9,14 +9,10 @@ $(document).ready(function () {
     let password = document.querySelector("#password").value;
     /* console.log(nombres);
     return false; */
-    if (
-      nombres !== "" &&
-      apellidos !== "" &&
-      email !== "" &&
-      usuario !== "" &&
-      password !== ""
+    if (nombres !== "" && apellidos !== "" && email !== "" &&usuario !== "" && password !== ""
     ) {
-      if (password.length > 7) {
+      
+       if (password.length > 7) {
         $.ajax({
           dataType: "json",
           url: "ajaxUsuarios/insert",
@@ -37,7 +33,7 @@ $(document).ready(function () {
           title: "Error",
           text: "La contraseña debe tener mas de 8 caracteres",
         });
-      }
+      } 
     } else {
       Swal.fire({
         icon: "error",

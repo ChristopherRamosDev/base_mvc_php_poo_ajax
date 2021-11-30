@@ -28850,7 +28850,7 @@ div.tagsinput span.tag a {
 
 @media (max-width: 991px) {
   .navbar .navbar-menu-wrapper {
-    width: calc(100% - 55px);
+    width: calc(100% - 100px);
     padding-left: 15px;
     padding-right: 11px;
   }
@@ -28886,7 +28886,7 @@ div.tagsinput span.tag a {
 @media (max-width: 991px) {
   .navbar .navbar-menu-wrapper .navbar-toggler.navbar-toggler-right {
     padding-left: 15px;
-    padding-right: 0;
+    padding-right: 20px;
   }
 }
 

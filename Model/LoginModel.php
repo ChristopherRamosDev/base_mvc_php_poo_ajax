@@ -3,10 +3,10 @@
 require_once  "config/db.php";
 class LoginModel
 {
-    protected int $id;
+    /* protected int $id;
     protected string $usuario;
     protected string $clave;
-    protected $conn;
+    protected $conn; */
 
 
     public function __construct()
@@ -47,20 +47,16 @@ class LoginModel
 
     public function login(string $usuario, string $clave)
     {
-        /* $usuario = $this->getUsuario();
-        $clave = $this->getPass();     */
         try {
             $this->query = "SELECT * FROM users where user = ? and pass = ?";
             $stmt = $this->conn->prepare($this->query);
             $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
             $stmt->bindValue(2, $clave, PDO::PARAM_STR);
             $stmt->execute();
-
-            
             $count = $stmt->rowCount();
-            if( $count > 0){
+            if ($count > 0) {
                 return $stmt->fetchAll();
-            }else{
+            } else {
                 return "No existe el usuario o la contraseña es incorrecta";
             }
         } catch (Exception $e) {
@@ -73,6 +69,17 @@ class LoginModel
             $this->query = "SELECT * FROM users ORDER by idUser DESC limit 1";
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
+    public function getPassByUser($usuario = "")
+    {
+        try {
+            $this->query = "SELECT pass FROM users where user  = :user";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute(array(':user' => $usuario));
             return $stmt->fetchAll();
         } catch (Exception $e) {
             echo $e->getTraceAsString();

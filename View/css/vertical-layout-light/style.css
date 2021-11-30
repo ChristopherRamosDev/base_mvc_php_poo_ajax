@@ -28850,7 +28850,7 @@
   
   @media (max-width: 991px) {
     .navbar .navbar-menu-wrapper {
-      width: calc(100% - 55px);
+      width: calc(100% - 100px);
       padding-left: 15px;
       padding-right: 11px;
     }

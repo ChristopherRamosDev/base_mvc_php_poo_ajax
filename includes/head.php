@@ -7,22 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Gastos-App</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="View/template/vendors/feather/feather.css">
-  <link rel="stylesheet" href="View/template/vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="View/template/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="<?php echo base_url;?>View/template/vendors/feather/feather.css">
+  <link rel="stylesheet" href="<?php echo base_url;?>View/template/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="<?php echo base_url;?>View/template/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="View/template/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <link rel="stylesheet" href="View/template/vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" type="text/css" href="View/template/js/select.dataTables.min.css">
+  <link rel="stylesheet" href="<?php echo base_url;?>View/template/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url;?>View/template/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url;?>View/template/js/select.dataTables.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="View/template/css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="<?php echo base_url;?>View/template/css/vertical-layout-light/style.css">
   
   
-  <link rel="stylesheet" href="View/sweetalert2/sweetalert2.min.css">
-  <link rel="stylesheet" href="View/sweetalert2/sweetalert2.css">
   <!-- endinject -->
-  <link rel="stylesheet" href="View/css/style.css">
-  <link rel="shortcut icon" href="View/template/images/favicon.png" />
+ 
+  <link rel="shortcut icon" href="<?php echo base_url;?>View/template/images/favicon.png" />
 </head>

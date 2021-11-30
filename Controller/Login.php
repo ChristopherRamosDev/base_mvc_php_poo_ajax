@@ -20,6 +20,10 @@ class Login extends Controller
         $save = $user->login($usuario, $clave);
         return  $save;
     }
+    function getPass(string $usuario = "")
+    {
+        $userModel = new LoginModel();
+        $save = $userModel->getPassByUser($usuario);
+        return  $save;
+    }
 }
-
-
