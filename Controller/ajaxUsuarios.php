@@ -15,31 +15,34 @@ class ajaxUsuarios
 
         $data = $_POST;
         $userRegister = new Register;
-        $nombres = $data['nombres'];
-        $apellidos = $data['apellidos'];
-        $email = $data['email'];
-        $usuario = $data['usuario'];
-        $password = hashPass($data['password']);
-        $insert = $userRegister->insert($nombres, $apellidos, $email, $usuario, $password);
+        $names = trim(filter_var($data['nombres'], FILTER_SANITIZE_STRING));
+        $lastNames = trim(filter_var($data['apellidos'], FILTER_SANITIZE_STRING));
+        $email = trim(filter_var($data['email'], FILTER_VALIDATE_EMAIL, FILTER_SANITIZE_EMAIL));
+        $user = trim(filter_var($data['usuario'], FILTER_SANITIZE_STRING));
+        $pass = hashPass($data['password']);
+        $insert = $userRegister->insert($names, $lastNames, $email, $user, $pass);
         echo json_encode($insert);
     }
     function login()
     {
         $userLogin = new Login();
         $data = $_POST;
-        $usuario = $data['user'];
+        $user = $data['user'];
         $password = $data['pass'];
-        $passByUser = $userLogin->getPass($usuario);
-        $passVerify = verifyPass($password, $passByUser[0]['pass']);
-        /* s */
-        $Respuesta = "El usuario o la clave son incorrectos";
-        $login = $userLogin->login($usuario, $passByUser[0]['pass']);
-        /* echo json_encode($login); */
-        if ($passVerify) {
-            $_SESSION['user'] = $usuario;
-            echo json_encode($login);
+        $passByUser = $userLogin->getPass($user);
+        $getUser = $userLogin->getUser($user);
+        $answer = "El usuario incorrecto o la clave son incorrectos";
+        if (is_array($getUser)) {
+            $passVerify = verifyPass($password, $passByUser[0]['pass']);
+            if ($passVerify) {
+                $_SESSION['user'] = $user;
+                $login = $userLogin->login($getUser[0]['user'], $passByUser[0]['pass']);
+                echo json_encode($login);
+            } else {
+                echo json_encode($answer);
+            }
         } else {
-            echo json_encode($Respuesta);
+            echo json_encode($answer);
         }
     }
     function logout()

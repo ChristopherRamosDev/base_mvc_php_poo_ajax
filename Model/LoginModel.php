@@ -48,17 +48,16 @@ class LoginModel
     public function login(string $usuario, string $clave)
     {
         try {
-            $this->query = "SELECT * FROM users where user = ? and pass = ?";
+            $this->query = "SELECT user,pass FROM users where user = :user and pass = :pass";
             $stmt = $this->conn->prepare($this->query);
-            $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
-            $stmt->bindValue(2, $clave, PDO::PARAM_STR);
-            $stmt->execute();
-            $count = $stmt->rowCount();
-            if ($count > 0) {
-                return $stmt->fetchAll();
+            $stmt->execute(array(':user' => $usuario, ':pass' => $clave));
+            return $stmt->fetchAll();
+            /* $count = $stmt->rowCount(); */
+            /*  if ($count > 0) {
+                
             } else {
                 return "No existe el usuario o la contraseña es incorrecta";
-            }
+            } */
         } catch (Exception $e) {
             echo $e->getTraceAsString();
         }
@@ -74,13 +73,29 @@ class LoginModel
             echo $e->getTraceAsString();
         }
     }
-    public function getPassByUser($usuario = "")
+    public function getPassByUser(string $usuario = "")
     {
         try {
             $this->query = "SELECT pass FROM users where user  = :user";
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute(array(':user' => $usuario));
             return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
+    public function getUserByUser($usuario = "")
+    {
+        try {
+            $this->query = "SELECT user FROM users where user  = :user";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute(array(':user' => $usuario));
+            $count = $stmt->rowCount();
+            if ($count > 0) {
+                return $stmt->fetchAll();
+            } else {
+                return "No existe el usuario";
+            }
         } catch (Exception $e) {
             echo $e->getTraceAsString();
         }

@@ -13,29 +13,14 @@ class register /* extends Controller  */
     {
         require_once 'View/register.php';
     }
-    function saludar($usu,$clave)
+    function saludar($usu, $clave)
     {
-        return "hola " . $usu . " " .$clave ;
+        return "hola " . $usu . " " . $clave;
     }
     public function insert(string $nombres, string $apellidos, string $email, string $usuario, string $clave)
     {
-
-        /* $first = $_POST['nombres'];
-        $second = $_POST['apellidos'];
-        $email = $_POST['email'];
-        $usuario = $_POST['usuario'];
-        $clave = $_POST['password']; */
-
         $user = new RegistroModel();
-        /* $user->setfirstName($first); */
-            /*         $user->setlastName($second);
-        $user->setemail($email);
-        $user->setUsuario($usuario);
-        $user->setClave($clave) */;
-        $save = $user->insert($nombres,$apellidos,$email,$usuario,$clave);
-        /* var_dump($save); */
+        $save = $user->insert($nombres, $apellidos, $email, $usuario, $clave);
         return  $save;
-
-        /* header('Location' .base_url.  'Login'); */
     }
 }

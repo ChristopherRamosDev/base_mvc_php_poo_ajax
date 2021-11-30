@@ -1,9 +1,5 @@
 $("#logout").click(function (e) {
   e.preventDefault();
-  /* let data = $("#fromLoginUser").serializeArray(); */
-  /* data.push({name:'tag',value:'loginUser'})   */
-  /*   console.log('click en logout');
-    return false; */
   $.ajax({
     url: "ajaxUsuarios/logout",
     type: "POST",
@@ -21,6 +17,5 @@ $("#logout").click(function (e) {
       }
     });
   });
-
   return false;
 });

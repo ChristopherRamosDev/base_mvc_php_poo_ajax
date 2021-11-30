@@ -6,8 +6,6 @@ class Login extends Controller
 
     function __construct()
     {
-        /* parent::__construct();
-        $this->view->render('Login'); */
     }
     public function render()
     {
@@ -24,6 +22,12 @@ class Login extends Controller
     {
         $userModel = new LoginModel();
         $save = $userModel->getPassByUser($usuario);
+        return  $save;
+    }
+    function getUser(string $usuario)
+    {
+        $userModel = new LoginModel();
+        $save = $userModel->getUserByUser($usuario);
         return  $save;
     }
 }
