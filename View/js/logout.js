@@ -3,7 +3,7 @@ $("#logout").click(function (e) {
   $.ajax({
     url: "ajaxUsuarios/logout",
     type: "POST",
-  }).done(function (resp) {
+  }).done(function () {
     Swal.fire({
       title: "¿Deseas cerrar sesion?",
       icon: "warning",

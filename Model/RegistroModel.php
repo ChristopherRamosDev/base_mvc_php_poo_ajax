@@ -104,4 +104,21 @@ class RegistroModel
             echo $e->getTraceAsString();
         }
     }
+    public function existsUser(string $usuario)
+    {
+        try {
+            $this->query = "SELECT user FROM users where user  = :user";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute(array(':user' => $usuario));
+            $count = $stmt->rowCount();
+            if ($count == 0) {
+                return $stmt->fetchAll();
+            } else if ($count >= 1) {
+                return "Usuario existente";
+            }
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
 }

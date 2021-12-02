@@ -14,7 +14,7 @@ $(document).ready(function () {
       usuario !== "" &&
       password !== ""
     ) {
-      if (onlyLetters(nombres) && onlyLetters(apellidos)) {
+      if (onlyLetters(nombres)) {
         if (isEmail(email)) {
           if (password.length > 7) {
             $.ajax({
@@ -22,14 +22,27 @@ $(document).ready(function () {
               url: "ajaxUsuarios/insert",
               type: "POST",
               data: data,
-            }).done(function () {
-              Swal.fire("Buen trabajo", "Registro exitoso", "success").then(
-                function () {
-                  if (true) {
-                    window.location = "Login";
+            }).done(function (resp) {
+              /* console.log(resp); */
+              if (
+                resp === "Debe llenar todos los campos correctamente" ||
+                resp === "La clave debe tener mas de 8 caracteres" ||
+                resp === "El usuario ya existe, intente con otro"
+              ) {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: resp,
+                });
+              } else {
+                Swal.fire("Buen trabajo", "Registro exitoso", "success").then(
+                  function () {
+                    if (true) {
+                      window.location = "Login";
+                    }
                   }
-                }
-              );
+                );
+              }
             });
           } else {
             Swal.fire({

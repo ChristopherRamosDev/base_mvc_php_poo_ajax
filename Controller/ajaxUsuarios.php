@@ -12,16 +12,36 @@ class ajaxUsuarios
     }
     public function insert()
     {
-
         $data = $_POST;
-        $userRegister = new Register;
-        $names = trim(filter_var($data['nombres'], FILTER_SANITIZE_STRING));
-        $lastNames = trim(filter_var($data['apellidos'], FILTER_SANITIZE_STRING));
-        $email = trim(filter_var($data['email'], FILTER_VALIDATE_EMAIL, FILTER_SANITIZE_EMAIL));
-        $user = trim(filter_var($data['usuario'], FILTER_SANITIZE_STRING));
-        $pass = hashPass($data['password']);
-        $insert = $userRegister->insert($names, $lastNames, $email, $user, $pass);
-        echo json_encode($insert);
+        $answerEmpty = "Debe llenar todos los campos correctamente";
+        $passLegth = "La clave debe tener mas de 8 caracteres";
+        $answeUser = "El usuario ya existe, intente con otro";
+        if (!empty($data)) {
+            $userRegister = new Register;
+            $names = trim(filter_var($data['nombres'], FILTER_SANITIZE_STRING));
+            $lastNames = trim(filter_var($data['apellidos'], FILTER_SANITIZE_STRING));
+            $email = trim(filter_var($data['email'], FILTER_VALIDATE_EMAIL, FILTER_SANITIZE_EMAIL));
+            $user = trim(filter_var($data['usuario'], FILTER_SANITIZE_STRING));
+            $pass = $data['password'];
+            if ($names !== '' && $lastNames !== '' && $email !== '' && $user !== '' && $pass !== '') {
+                $userVerify = $userRegister->verifyUser($user);
+                if (is_array($userVerify)) {
+                    if (strlen($pass) > 7) {
+                        $passHashed = hashPass($pass);
+                        $insert = $userRegister->insert($names, $lastNames, $email, $user, $passHashed);
+                        echo json_encode($insert);
+                    } else {
+                        echo json_encode($passLegth);
+                    }
+                } else {
+                    echo json_encode($answeUser);
+                }
+            } else {
+                echo json_encode($answerEmpty);
+            }
+        } else {
+            echo json_encode($answerEmpty);
+        }
     }
     function login()
     {
