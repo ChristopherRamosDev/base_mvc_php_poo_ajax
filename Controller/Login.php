@@ -1,5 +1,6 @@
 <?php
-require_once 'Model/LoginModel.php';
+require_once 'Model/LoginModel.php'; 
+require_once 'utils/helpers.php';
 
 class Login extends Controller
 {
@@ -10,13 +11,6 @@ class Login extends Controller
     public function render()
     {
         require_once 'View/Login.php';
-    }
-
-    function login(string $usuario = "", string $clave = "")
-    {
-        $user = new LoginModel();
-        $save = $user->login($usuario, $clave);
-        return  $save;
     }
     function getPass(string $usuario = "")
     {
@@ -29,5 +23,28 @@ class Login extends Controller
         $userModel = new LoginModel();
         $save = $userModel->getUserByUser($usuario);
         return  $save;
+    }
+    function login()
+    {
+        $userModel = new LoginModel();
+        $data = $_POST;
+        $user = $data['user'];
+        $password = $data['pass'];
+        $passByUser = $this->getPass($user);
+        $getUser = $this->getUser($user);
+        $answer = "El usuario incorrecto o la clave son incorrectos";
+        if (is_array($getUser)) {
+            $passVerify = verifyPass($password, $passByUser[0]['pass']);
+            if ($passVerify) {
+                $_SESSION['user'] = $user;
+                $login = $userModel->login($getUser[0]['user'], $passByUser[0]['pass']);
+                echo json_encode($login);
+                $_SESSION['idUser'] = $login[0][2];
+            } else {
+                echo json_encode($answer);
+            }
+        } else {
+            echo json_encode($answer);
+        }
     }
 }

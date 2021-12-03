@@ -1,11 +1,10 @@
 <?php
 
-class Home  extends Controller
+class Home  
 {
     function __construct()
     {
-        parent::__construct();
-        require_once 'View/Home.php';
+        
     }
     public function render()
     {

@@ -48,7 +48,7 @@ class LoginModel
     public function login(string $usuario, string $clave)
     {
         try {
-            $this->query = "SELECT user,pass FROM users where user = :user and pass = :pass";
+            $this->query = "SELECT user,pass,idUser FROM users where user = :user and pass = :pass";
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute(array(':user' => $usuario, ':pass' => $clave));
             return $stmt->fetchAll();

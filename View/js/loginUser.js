@@ -6,7 +6,7 @@ $("#btnLogin").click(function (e) {
   if (usuario !== "" && password !== "") {
     $.ajax({
       dataType: "json",
-      url: "ajaxUsuarios/login",
+      url: "Login/login",
       type: "POST",
       data: data,
     }).done(function (resp) {

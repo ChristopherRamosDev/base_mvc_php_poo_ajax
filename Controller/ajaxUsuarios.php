@@ -54,10 +54,12 @@ class ajaxUsuarios
         $answer = "El usuario incorrecto o la clave son incorrectos";
         if (is_array($getUser)) {
             $passVerify = verifyPass($password, $passByUser[0]['pass']);
+            
             if ($passVerify) {
                 $_SESSION['user'] = $user;
                 $login = $userLogin->login($getUser[0]['user'], $passByUser[0]['pass']);
                 echo json_encode($login);
+                $_SESSION['idUser'] = $login[0][2];
             } else {
                 echo json_encode($answer);
             }

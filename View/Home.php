@@ -3,7 +3,7 @@
 if (isset($_SESSION['user'])) : ?>
   <?php require_once 'includes/head.php'; ?>
 
-  <body>
+  
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -45,7 +45,7 @@ if (isset($_SESSION['user'])) : ?>
 
     <?php require_once 'includes/footer.php'; ?>
 
-    </html>
+    
 
   <?php else :
 

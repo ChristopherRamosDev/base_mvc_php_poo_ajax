@@ -19,7 +19,7 @@ $(document).ready(function () {
           if (password.length > 7) {
             $.ajax({
               dataType: "json",
-              url: "ajaxUsuarios/insert",
+              url: "Register/insert",
               type: "POST",
               data: data,
             }).done(function (resp) {

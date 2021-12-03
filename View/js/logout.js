@@ -1,9 +1,6 @@
 $("#logout").click(function (e) {
   e.preventDefault();
-  $.ajax({
-    url: "ajaxUsuarios/logout",
-    type: "POST",
-  }).done(function () {
+  $.ajax({}).done(function () {
     Swal.fire({
       title: "¿Deseas cerrar sesion?",
       icon: "warning",
@@ -13,7 +10,13 @@ $("#logout").click(function (e) {
       confirmButtonText: "Si",
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "";
+        $.ajax({
+          url: "ajaxUsuarios/logout",
+          type: "POST",
+        }).done(function () {
+          window.location.href = "";
+        });
+      } else {
       }
     });
   });

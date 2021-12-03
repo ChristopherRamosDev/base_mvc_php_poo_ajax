@@ -22653,7 +22653,7 @@
     padding: .4375rem .75rem;
     border: 0;
     outline: 1px solid #CED4DA;
-    color: #c9c8c8;
+    /* color: #c9c8c8; */
   }
   
   select.form-control:focus, select.asColorPicker-input:focus, .dataTables_wrapper select:focus,
@@ -26160,7 +26160,7 @@
   }
   
   .dataTables_wrapper .dataTables_length select {
-    min-width: 70px;
+    
     margin-left: .25rem;
     margin-right: .25rem;
     width: -webkit-fill-available;
@@ -30590,6 +30590,12 @@
     #settings-trigger {
       display: none;
     }
+  }
+  table, tr, td{
+    max-width:0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

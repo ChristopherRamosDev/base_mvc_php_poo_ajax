@@ -2,7 +2,7 @@
 session_start();
 require_once 'config/db.php';
 require_once 'autoloadController.php';
- require_once 'autoloadModel.php';  
+require_once 'autoloadModel.php';
 require_once 'config/parameters.php';
 require_once 'libs/controller.php';
 require_once 'libs/view.php';

@@ -21,13 +21,18 @@
  <!-- Custom js for this page-->
  <script src="<?php echo base_url;?>View/template/js/dashboard.js"></script>
  <script src="<?php echo base_url;?>View/template/js/Chart.roundedBarCharts.js"></script>
+ 
 
 
 
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 
+ <script src="<?php echo base_url;?>ServerSide/ServerSide/js/bootstrap.min.js"></script>
+ <script src="<?php echo base_url;?>ServerSide/ServerSide/js/jquery.dataTables.min.js"></script>
  <script src="<?php echo base_url;?>View/js/registerUser.js"></script>
  <script src="<?php echo base_url;?>View/js/loginUser.js"></script>
  <script src="<?php echo base_url;?>View/js/logout.js"></script>
+
  <!-- End custom js for this page-->
  </body>

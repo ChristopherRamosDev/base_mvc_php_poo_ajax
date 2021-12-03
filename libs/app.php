@@ -63,7 +63,7 @@ class App
                     $controller->render();
                 }
             } else {
-
+                /* $controller = new Errores; */
                 $controller->render();
             }
         } else {
