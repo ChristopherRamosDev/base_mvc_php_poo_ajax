@@ -32,11 +32,11 @@ class Login extends Controller
         $password = $data['pass'];
         $passByUser = $this->getPass($user);
         $getUser = $this->getUser($user);
-        $answer = "El usuario incorrecto o la clave son incorrectos";
+        $answer = "Usuario o clave incorretos";
         if (is_array($getUser)) {
             $passVerify = verifyPass($password, $passByUser[0]['pass']);
-            if ($passVerify) {
-                $_SESSION['user'] = $user;
+            if ($passVerify == true) {
+                $_SESSION['user'] = $getUser;
                 $login = $userModel->login($getUser[0]['user'], $passByUser[0]['pass']);
                 echo json_encode($login);
                 $_SESSION['idUser'] = $login[0][2];

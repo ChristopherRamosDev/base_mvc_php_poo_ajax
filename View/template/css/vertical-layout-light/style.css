@@ -30592,4 +30592,50 @@ div.tagsinput span.tag a {
   }
 }
 
+
+
+@media only screen and (max-width: 991px) {
+  .footer_log{
+    width: 100%;
+    display: block;
+    bottom: 5px;
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+  }
+  .footer_log img{
+    margin-top: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  .footer_log p{
+    margin-top: 5px;
+   text-align: center;
+   font-size: 16px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .footer_log{
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    bottom: 30px;
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+  }
+  .footer_log img{
+    width: 350px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+  }
+  .footer_log p{
+   font-size: 18px;
+  }
+}
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

@@ -19,7 +19,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="<?php echo base_url;?>View/template/css/vertical-layout-light/style.css">
   
-    <link rel="stylesheet" href="<?php echo base_url;?>ServerSide/ServerSide/css/jquery.dataTables.min.css">
+  
   <!-- endinject -->
  
   <link rel="shortcut icon" href="<?php echo base_url;?>View/template/images/favicon.png" />

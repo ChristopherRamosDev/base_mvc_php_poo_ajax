@@ -7,11 +7,11 @@
           <div class="mx-auto text-white">
             <div class="row d-block">
               <div class="text-center">
-                <h1 class="display-1 mb-0 text-center">404</h1>
+                <h2 class="display-1 mb-0 text-center">Acceso denegado</h2>
               </div>
               <div class=" error-page-divider text-center">
                 <h2>Error</h2>
-                <h3 class="font-weight-light">La página que buscas no existe</h3>
+                <h4 class="font-weight-light">Al parecer estas tratando de ingresar sin haber iniciado sesion, por favor logueate</h4>
               </div>
             </div>
             <div class="row mt-5">

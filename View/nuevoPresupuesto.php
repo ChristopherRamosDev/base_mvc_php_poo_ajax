@@ -27,7 +27,7 @@ if (isset($_SESSION['user'])) : ?>
         
         <!-- partial -->
         <!-- partial:partials/_sidebar.html -->
-        <?php require_once 'includes/nav-bar.php'?>
+        <?php require_once 'includes/nav-bar.php'; ?>
         <!-- partial -->
         <div class="main-panel">
 

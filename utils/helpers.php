@@ -7,6 +7,7 @@ function hashPass($pass)
 function verifyPass($passHash, $curretnPass)
 {
     return password_verify($passHash, $curretnPass);
+    
 }
 function isString($arr)
 {

@@ -32,7 +32,7 @@ if (isset($_SESSION['user'])) : ?>
         <div class="main-panel">
 
           <!-- content-wrapper ends -->
-          <?php require_once 'includes/nuevoPresupuesto.php';?>
+         
           <!-- partial:partials/_footer.html -->
             <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">

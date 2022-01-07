@@ -37,7 +37,7 @@ if (isset($_SESSION['user'])) : ?>
             <!-- partial:partials/_footer.html -->
 
             
-              <div class="col-lg-9 grid-margin stretch-card" style="margin: 0 auto;">
+              <div class="col-12 grid-margin stretch-card" style="width: 80%;margin: 0 auto;">
                 <div class="card">
                   <div class="card-body">
                     <div class="table-responsive">
@@ -56,19 +56,13 @@ if (isset($_SESSION['user'])) : ?>
                             <th>
                               Fecha
                             </th>
-                            <th>
+                           
+                             <th>
                               Ver más
-                            </th>
+                            </th> 
                           </tr>
                         </thead>
-                        <!-- <tbody>
-                          <tr>
-                            <th>si</th>
-                            <th>si</th>
-                            <th>si</th>
-                            <th>si</th>
-                          </tr>
-                        </tbody> -->
+                       
                       </table>
                     </div>
                   </div>

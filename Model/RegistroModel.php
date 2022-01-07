@@ -79,7 +79,7 @@ class RegistroModel
         $clave = $this->getPass();
         $hashedPass = $this->hashPass($clave); */
         try {
-            $this->query = "INSERT INTO users(`nombres`,`apellidos`,`correo`,`user`,`pass`,`rolID`) VALUES (?,?,?,?,?,?)";
+            $this->query = "INSERT INTO users(`nombres`,`apellidos`,`correo`,`user`,`pass`,`idRol`) VALUES (?,?,?,?,?,?)";
             $stmt = $this->conn->prepare($this->query);
             $stmt->bindValue(1, $nombres, PDO::PARAM_STR);
             $stmt->bindValue(2, $apellidos, PDO::PARAM_STR);
