@@ -27,12 +27,13 @@
 
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
- 
+
  <script src="<?php echo base_url;?>ServerSide/ServerSide/js/bootstrap.min.js"></script>
  <script src="<?php echo base_url;?>ServerSide/ServerSide/js/jquery.dataTables.min.js"></script>
  <script src="<?php echo base_url;?>View/js/registerUser.js"></script>
  <script src="<?php echo base_url;?>View/js/loginUser.js"></script>
  <script src="<?php echo base_url;?>View/js/logout.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
  <!-- End custom js for this page-->
  </body>

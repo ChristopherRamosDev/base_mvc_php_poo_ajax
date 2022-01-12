@@ -23,4 +23,5 @@
   <!-- endinject -->
  
   <link rel="shortcut icon" href="<?php echo base_url;?>View/template/images/favicon.png" />
+  
 </head>

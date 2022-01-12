@@ -1,4 +1,3 @@
-
 <?php
 
 class PresupuestosModel
@@ -13,7 +12,7 @@ class PresupuestosModel
     {
         $usuario = $_SESSION['idUser'];
         try {
-            $this->query = "SELECT nombre,descripcion,cantidad,fecha FROM presupuesto where idUsuario  = :user";
+            $this->query = "SELECT nombre,cantidad,fecha,idPresupuesto FROM presupuesto where idUsuario  = :user";
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute(array(':user' => $usuario));
             return $stmt->fetchAll();
@@ -28,16 +27,15 @@ class PresupuestosModel
             echo $e->getTraceAsString();
         }
     }
-    public function insert(string $nombre, string $descripcion, float $monto)
+    public function insert(string $nombre, float $monto)
     {
         $usuario = $_SESSION['idUser'];
         try {
-            $this->query = "INSERT INTO presupuesto(`nombre`,`descripcion`,`cantidad`,`idUsuario`) VALUES (?,?,?,?)";
+            $this->query = "INSERT INTO presupuesto(`nombre`,`cantidad`,`idUsuario`) VALUES (?,?,?)";
             $stmt = $this->conn->prepare($this->query);
             $stmt->bindValue(1, $nombre, PDO::PARAM_STR);
-            $stmt->bindValue(2, $descripcion, PDO::PARAM_STR);
-            $stmt->bindValue(3, $monto, PDO::PARAM_STR);
-            $stmt->bindValue(4, $usuario, PDO::PARAM_INT);
+            $stmt->bindValue(2, $monto, PDO::PARAM_STR);
+            $stmt->bindValue(3, $usuario, PDO::PARAM_INT);
             /* var_dump($this->query);  */
             return $stmt->execute();
         } catch (Exception $e) {
@@ -48,10 +46,38 @@ class PresupuestosModel
     {
         $usuario = $_SESSION['idUser'];
         try {
-            $this->query = "SELECT * FROM presupuesto where idUsuario = $usuario ORDER by idPresupuesto DESC limit 1";
+            $this->query = "SELECT nombre,cantidad,fecha FROM presupuesto where idUsuario = $usuario ";
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute();
             return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
+    public function getOne(int $id)
+    {
+        $usuario = $_SESSION['idUser'];
+        try {
+            $this->query = "SELECT nombre,cantidad FROM presupuesto where idUsuario = :user and idPresupuesto=:id";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute(array(':user' => $usuario, ':id' => $id));
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
+    public function update(string $nombre, float $monto, int $id)
+    {
+        $usuario = $_SESSION['idUser'];
+        try {
+            $this->query = "UPDATE presupuesto set nombre=?,cantidad=?,idUsuario=?, fecha=CURDATE() WHERE idPresupuesto =?";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->bindValue(1, $nombre, PDO::PARAM_STR);
+            $stmt->bindValue(2, $monto, PDO::PARAM_STR);
+            $stmt->bindValue(3, $usuario, PDO::PARAM_INT);
+            $stmt->bindValue(4, $id, PDO::PARAM_INT);
+            /* var_dump($this->query);  */
+            return $stmt->execute();
         } catch (Exception $e) {
             echo $e->getTraceAsString();
         }
