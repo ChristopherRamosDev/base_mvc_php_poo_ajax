@@ -15,7 +15,7 @@ class PresupuestosModel
             $this->query = "SELECT nombre,cantidad,fecha,idPresupuesto FROM presupuesto where idUsuario  = :user";
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute(array(':user' => $usuario));
-            return $stmt->fetchAll();
+            
             /*             $count = $stmt->rowCount();
             if ($count == 0) {
                 

@@ -5,16 +5,18 @@ class Presupuestos
 {
     public function __construct()
     {
+        
     }
     public function render()
     {
         require_once 'View/Presupuestos.php';
     }
-    public function getBudgets($usuario)
+    public function getBudgets()
     {
+        $usuario = $_SESSION['idUser'];
         $presupuesto = new PresupuestosModel();
         $getAll = $presupuesto->getAllBudgets($usuario);
-        return $getAll;
+        echo json_encode($getAll);
     }
     public function getOnes()
     {
@@ -37,6 +39,11 @@ class Presupuestos
                     $val = filter_var($intVal, FILTER_SANITIZE_NUMBER_INT);
                     $isValid = filter_var($val, FILTER_VALIDATE_INT);
                     if ($isValid) {
+                        $presupuestoModel = new PresupuestosModel;
+                        $_SESSION['idBudget'] = $val;
+                        $getOne = $presupuestoModel->getOne($val);
+                        $_SESSION['dataBudget'] = $getOne[0];
+                        
                         require_once 'View/editBudget.php';
                     } else {
                         require_once 'View/404.php';
@@ -70,7 +77,7 @@ class Presupuestos
                 $presupuestoModel = new PresupuestosModel;
                 $data = $_POST;
                 $nombres = $data['nombre'];
-
+                $nombres = trim($nombres);
                 $monto = $data['cantidad'];
                 $montoCorrecto = str_replace(",", ".", $monto);
                 $montoRecotado = trim($montoCorrecto);
@@ -126,6 +133,7 @@ class Presupuestos
                 $presupuestoModel = new PresupuestosModel;
                 $data = $_POST;
                 $nombres = $data['nombreUpdate'];
+                $nombres = trim($nombres);
                 $idPre = $data['idPresu'];
                 $monto = $data['cantidadUpdate'];
                 $montoCorrecto = str_replace(",", ".", $monto);

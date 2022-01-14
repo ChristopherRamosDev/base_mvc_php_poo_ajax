@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  
   $('#exampleModal').on('show.bs.modal', function () { })
 
   tablaPresupuestos = $('#tablaPresupuestos').DataTable({
@@ -8,7 +9,7 @@ $(document).ready(function () {
     searching: false,
     destroy: true,
     "ajax": {
-      url: "ajaxPresupuestos/index",
+      url: "Presupuestos/getBudgets",
       method: "POST", //usamos el metodo POST
       "dataSrc": ""
     },
@@ -23,7 +24,7 @@ $(document).ready(function () {
         data: null, class: 'text-center',
         render: function (data, type, row) {
           return (
-            '<a class="text-center" href="http://localhost:8080/usa/Presupuestos/editBudget/' +
+            '<a class="text-center" href="http://localhost:8080/usa/Gastos/index/' +
             Number(row.idPresupuesto) +
             '" ">Ver</a>'
           );
