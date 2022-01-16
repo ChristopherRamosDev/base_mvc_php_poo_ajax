@@ -1,6 +1,5 @@
 $(document).ready(function () {
-  
-  $('#exampleModal').on('show.bs.modal', function () { })
+  $('#exampleModalGasto').on('show.bs.modal', function () { })
 
   tablaPresupuestos = $('#tablaPresupuestos').DataTable({
     paging: false,
@@ -57,6 +56,7 @@ $(document).ready(function () {
           $('#exampleModal').modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
+          $("#frmPresu").trigger("reset");
         } else {
           Swal.fire({
             icon: "error",

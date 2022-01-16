@@ -34,9 +34,44 @@ if (isset($_SESSION['user'])) : ?>
           <!-- content-wrapper ends -->
           <?php require_once 'includes/editBudget.php'; ?>
           <!-- partial:partials/_footer.html -->
+          <div class="col-12 mb-4 mb-xl-0 p-2">
+            <button class="btn btn-success mt-1" id="btnNewBudget" data-toggle="modal" data-target="#exampleModalGasto">Añadir gasto</button>
+          </div>
+          <div class="modal fade" id="exampleModalGasto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="frmGasto">
+                    <div class="form-group">
+                      <label for="nombre" class="col-form-label">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" name="nombre">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="nombre" class="col-form-label">Monto</label>
+                      <input type="text" class="form-control" id="monto" name="monto">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                  <button id="nuevoGasto" type="button" class="btn btn-primary">Enviar</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-12 grid-margin stretch-card" style="width: 80%;margin: 0 auto;">
+
             <div class="card">
+
               <div class="card-body">
+
                 <div class="table-responsive">
                   <table class="table table-striped" id="tablaGastos" style="width: 100%;">
                     <thead>
@@ -58,6 +93,37 @@ if (isset($_SESSION['user'])) : ?>
                     </thead>
 
                   </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="frmGastoUpdate">
+                    <input type="hidden" name="idPresu" id="idPresu" value="">
+                    <input type="hidden" name="trid" id="trid" value="">
+                    <div class="form-group">
+                      <label for="nombre" class="col-form-label">Nombre</label>
+                      <input type="text" class="form-control" id="nombreUpdateGasto" name="nombreUpdateGasto">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="nombre" class="col-form-label">Monto</label>
+                      <input type="text" class="form-control" id="montoUpdate" name="montoUpdate">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                  <button id="updateGasto" type="button" class="btn btn-primary">Editar</button>
                 </div>
               </div>
             </div>

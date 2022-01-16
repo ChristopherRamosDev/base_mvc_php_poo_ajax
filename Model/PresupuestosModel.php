@@ -58,7 +58,7 @@ class PresupuestosModel
     {
         $usuario = $_SESSION['idUser'];
         try {
-            $this->query = "SELECT nombre,cantidad FROM presupuesto where idUsuario = :user and idPresupuesto=:id";
+            $this->query = "SELECT idPresupuesto,nombre,cantidad FROM presupuesto where idUsuario = :user and idPresupuesto=:id";
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute(array(':user' => $usuario, ':id' => $id));
             return $stmt->fetchAll();
