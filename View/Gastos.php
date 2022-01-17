@@ -61,12 +61,12 @@ if (isset($_SESSION['user'])) : ?>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                  <button id="nuevoGasto" type="button" class="btn btn-primary">Enviar</button>
+                  <button id="nuevoGasto" type="button" class="btn btn-primary">Crear</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-12 grid-margin stretch-card" style="width: 80%;margin: 0 auto;">
+          <div class="col-12 grid-margin stretch-card" style="width: auto;margin: 0 auto;">
 
             <div class="card">
 
@@ -108,15 +108,13 @@ if (isset($_SESSION['user'])) : ?>
                 </div>
                 <div class="modal-body">
                   <form id="frmGastoUpdate">
-                    <input type="hidden" name="idPresu" id="idPresu" value="">
-                    <input type="hidden" name="trid" id="trid" value="">
                     <div class="form-group">
-                      <label for="nombre" class="col-form-label">Nombre</label>
+                      <label for="nombre" class="col-form-label">Nombres:</label>
                       <input type="text" class="form-control" id="nombreUpdateGasto" name="nombreUpdateGasto">
                     </div>
 
                     <div class="form-group">
-                      <label for="nombre" class="col-form-label">Monto</label>
+                      <label for="nombre" class="col-form-label">Monto:</label>
                       <input type="text" class="form-control" id="montoUpdate" name="montoUpdate">
                     </div>
                   </form>

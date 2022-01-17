@@ -27,7 +27,7 @@ class Presupuestos
         $getOne = $presupuesto->getOne($id);
         echo json_encode($getOne);
     }
-    public function editBudget()
+    /* public function editBudget()
     {
         $url = $_GET['url'];
         $url = explode('/', $url);
@@ -57,7 +57,7 @@ class Presupuestos
         } else {
             require_once 'View/error_login.php';
         }
-    }
+    } */
     public function nuevoPresupuesto()
     {
         require_once 'View/NuevoPresupuesto.php';
@@ -129,6 +129,7 @@ class Presupuestos
             $nombres = $data['nombreUpdate'];
             $monto = $data['cantidadUpdate'];
             $idPre = $data['idPresu'];
+            $_SESSION['idPresupuestoUpdate'] = $idPre;
             if ($nombres !== ""  && $monto !== "" && $idPre !== "") {
                 $presupuestoModel = new PresupuestosModel;
                 $data = $_POST;

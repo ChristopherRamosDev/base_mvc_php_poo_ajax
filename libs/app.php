@@ -43,17 +43,22 @@ class App
                 if (method_exists($controller, $url[1])) {
 
                     if (isset($url[2])) {
-                        //el método tiene parámetros
-                        //sacamos e # de parametros
-                        $nparam = sizeof($url) - 2;
-                        //crear un arreglo con los parametros
-                        $params = [];
-                        //iterar
-                        for ($i = 0; $i < $nparam; $i++) {
-                            array_push($params, $url[$i + 2]);
+                        if (isset($url[3])) {
+                            $controller = new Errores;
+                            $controller->render();
+                        } else {
+                            //el método tiene parámetros
+                            //sacamos e # de parametros
+                            $nparam = sizeof($url) - 2;
+                            //crear un arreglo con los parametros
+                            $params = [];
+                            //iterar
+                            for ($i = 0; $i < $nparam; $i++) {
+                                array_push($params, $url[$i + 2]);
+                            }
+                            //pasarlos al metodo   
+                            $controller->{$url[1]}($params);
                         }
-                        //pasarlos al metodo   
-                        $controller->{$url[1]}($params);
                     } else {
                         $controller->{$url[1]}();
                     }

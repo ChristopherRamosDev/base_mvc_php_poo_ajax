@@ -72,4 +72,44 @@ class GastosModel
             echo $e->getTraceAsString();
         }
     }
+    public function getOne(int $id)
+    {
+
+        try {
+            $this->query = "SELECT idGasto,nombre,monto FROM gastos where  idGasto=:id";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute(array(':id' => $id));
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
+    public function getNotIdGasto(int $idGasto, int $idPresupuesto)
+    {
+
+        try {
+            $this->query = "SELECT sum(monto) FROM gastos WHERE idGasto<>:idGasto and idPresupuesto=:idPresupuesto";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute(array(':idGasto' => $idGasto, ':idPresupuesto' => $idPresupuesto));
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
+    public function update(string $nombre, float $monto, int $idPresupuesto, int $idGasto)
+    {
+
+        try {
+            $this->query = "UPDATE gastos set nombre=?,monto=?, fecha=CURDATE(),idPresupuesto=? WHERE idGasto =?";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->bindValue(1, $nombre, PDO::PARAM_STR);
+            $stmt->bindValue(2, $monto, PDO::PARAM_STR);
+            $stmt->bindValue(3, $idPresupuesto, PDO::PARAM_INT);
+            $stmt->bindValue(4, $idGasto, PDO::PARAM_INT);
+            /* var_dump($this->query);  */
+            return $stmt->execute();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
 }

@@ -18,8 +18,20 @@ class Gastos
 
             if ($url[1] == "index") {
                 if (isset($url[2]) && !empty($url[2])) {
-                    $intVal = intval($url[2]);
-                    $val = filter_var($intVal, FILTER_SANITIZE_NUMBER_INT);
+                    $isInt = filter_var(($url[2]), FILTER_VALIDATE_INT);
+                    if ($isInt) {
+                        $presupuestoModel = new PresupuestosModel;
+                        $_SESSION['idBudget'] = $isInt;
+                        $getOne = $presupuestoModel->getOne($isInt);
+                        $_SESSION['dataBudget'] = $getOne[0];
+                        $_SESSION['idUsaGasto'] = $isInt;
+                        require_once 'View/Gastos.php';
+                    } else {
+                        require_once 'View/404.php';
+                    }
+                    /*  var_dump($isInt);
+                    die(); */
+                    /* $val = filter_var($intVal, FILTER_SANITIZE_NUMBER_INT);
                     $isValid = filter_var($val, FILTER_VALIDATE_INT);
                     if ($isValid) {
                         $presupuestoModel = new PresupuestosModel;
@@ -30,7 +42,7 @@ class Gastos
                         require_once 'View/Gastos.php';
                     } else {
                         require_once 'View/404.php';
-                    }
+                    } */
                 } else {
                     require_once 'View/404.php';
                 }
@@ -41,22 +53,15 @@ class Gastos
             require_once 'View/error_login.php';
         }
     }
-    /*    public function getGastosa(){
-        $gastosModel = new GastosModel;
-        $getGastos = $gastosModel->getAllGastos(101);
-        echo json_encode($getGastos);
 
-    } */
     public function create()
     {
         $answer = "Llene todos los datos";
-        $answerParsed = "Tipo de dato incorrecto";
+        $answerParsed = "Tipo de dato incorrecto y/o debe ingresar un monto mayor a 0";
         $answerInsert = "Error al agregar nuevo presupuesto, intente correctamente";
         $data = $_POST;
-
         if (!empty($data) && isset($_POST)) {
             $nombres = $data['nombre'];
-
             $monto = $data['monto'];
             if ($nombres !== "" && $monto !== "") {
                 $gastosModel = new GastosModel;
@@ -69,14 +74,13 @@ class Gastos
                 $montoRecotado = substr($montoRecotado, -1);
                 if ($montoRecotado !== ".") {
                     $montoValidado = filter_var($montoCorrecto, FILTER_VALIDATE_FLOAT);
-                    if ($montoValidado !== false) {
+                    if ($montoValidado !== false && $montoValidado > 0) {
                         $restante = $gastosModel->restante($_SESSION['idUsaGasto']);
                         if (is_null($restante[0][0])) {
                             $presupuesto = $gastosModel->insert($nombres,  $montoValidado, $_SESSION['idUsaGasto']);
                             if ($presupuesto === true) {
                                 $last = $gastosModel->idLast($_SESSION['idUsaGasto']);
                                 $diff = $_SESSION['dataBudget']['cantidad'] - $last[0]['monto'];
-                                /* $_SESSION['difference'] = $diff; */
                                 $dataCreate = array(
                                     "create" => $last,
                                     "restante" => $diff
@@ -87,14 +91,12 @@ class Gastos
                             }
                         } else {
                             $last = $gastosModel->idLast($_SESSION['idUsaGasto']);
-                            $diff = $_SESSION['dataBudget']['cantidad'] - $last[0]['monto'];
+                            /*  $diff = $_SESSION['dataBudget']['cantidad'] - $last[0]['monto']; */
                             $diffRe = $_SESSION['dataBudget']['cantidad'] - ($restante[0]['sum(monto)'] + $montoValidado);
-                            /* echo json_encode($diffRe); */
-                             if ($diffRe < 0) {
+                            if ($diffRe < 0) {
                                 $answerRestante = "Error, usted ha sobrepasado el presupuesto";
                                 echo json_encode($answerRestante);
                             } else {
-                             
                                 $presupuesto = $gastosModel->insert($nombres,  $montoValidado, $_SESSION['idUsaGasto']);
                                 if ($presupuesto === true) {
                                     $last = $gastosModel->idLast($_SESSION['idUsaGasto']);
@@ -106,7 +108,7 @@ class Gastos
                                 } else {
                                     echo json_encode($answerInsert);
                                 }
-                            } 
+                            }
                         }
                     } else {
                         echo json_encode($answerParsed);
@@ -114,28 +116,15 @@ class Gastos
                 } else {
                     echo json_encode($answerInsert);
                 }
-                /*  $montoValidado = filter_var($montoCorrecto, FILTER_VALIDATE_FLOAT);
-                if ($montoValidado !== false) {
-                    $presupuesto = $presupuestoModel->insert($nombres, $descripcion, $montoValidado);
-                    if ($presupuesto) {
-                        echo json_encode($presupuesto);
-                    } else {
-                        echo json_encode($answerInsert);
-                    }
-                } else {
-                    echo json_encode($answerParsed);
-                } */
             } else {
                 echo json_encode($answer);
             }
         } else {
             require_once 'View/404.php';
-            /* echo json_encode($answer); */
         }
     }
     public function getGastos()
     {
-
         $gastosModel = new GastosModel;
         $getGastos = $gastosModel->getAllGastos($_SESSION['idUsaGasto']);
         echo json_encode($getGastos);
@@ -145,10 +134,8 @@ class Gastos
         $presupuestoModel = new PresupuestosModel;
         $gastosModel = new GastosModel;
         $getOne = $presupuestoModel->getOne($_SESSION['idUsaGasto']);
-        /* $_SESSION['montoTotal'] = $getOne[0][2]; */
         $restante = $gastosModel->restante($_SESSION['idUsaGasto']);
         $diff = $_SESSION['dataBudget']['cantidad'] - $restante[0]['sum(monto)'];
-
         $dataArray = array(
             "one" => $getOne[0],
             "restante" => $diff
@@ -161,5 +148,68 @@ class Gastos
         $restante = $gastosModel->restante($_SESSION['idUsaGasto']);
         $diff = $_SESSION['montoTotal'] - $restante[0]['sum(monto)'];
         echo json_encode($diff);
+    }
+    public function getOnes()
+    {
+        $presupuesto = new GastosModel();
+        $data = $_POST;
+        $id = $data['id'];
+        $getOne = $presupuesto->getOne($id);
+        echo json_encode($getOne);
+    }
+    public function edit()
+    {
+        $answer = "Llene todos los datos";
+        $answerParsed = "Tipo de dato incorrecto y/o debe ingresar un monto mayor a 0";
+        $answerInsert = "Error al agregar nuevo presupuesto, intente correctamente";
+        $data = $_POST;
+
+        if (!empty($data) && isset($_POST)) {
+            $nombres = $data['nombreUpdateGasto'];
+            $monto = $data['montoUpdate'];
+            $idPre = $data['idGasto'];
+            if ($nombres !== ""  && $monto !== "" && $idPre !== "") {
+                $gastosModel = new GastosModel;
+                $data = $_POST;
+                $nombres = $data['nombreUpdateGasto'];
+                $nombres = trim($nombres);
+                $idPre = $data['idGasto'];
+                $monto = $data['montoUpdate'];
+                $montoCorrecto = str_replace(",", ".", $monto);
+                $montoRecotado = trim($montoCorrecto);
+                $montoRecotado = substr($montoRecotado, -1);
+                if ($montoRecotado !== ".") {
+                    $montoValidado = filter_var($montoCorrecto, FILTER_VALIDATE_FLOAT);
+                    if ($montoValidado !== false && $montoValidado > 0) {
+                        $getNot = $gastosModel->getNotIdGasto($idPre, $_SESSION['idUsaGasto']);
+                        $diffRe =   $_SESSION['dataBudget']['cantidad'] -  ($getNot[0]['sum(monto)'] + $montoValidado);
+                        if ($diffRe < 0) {
+                            $answerRestante = "Error, usted ha sobrepasado el presupuesto";
+                            echo json_encode($answerRestante);
+                        } else {
+                            $presupuesto = $gastosModel->update($nombres, $montoValidado, $_SESSION['idUsaGasto'], $idPre);
+                            if ($presupuesto === true) {
+                                $last = $gastosModel->idLast($_SESSION['idUsaGasto']);
+                                $dataCreate = array(
+                                    "create" => $last,
+                                    "restante" => $diffRe
+                                );
+                                echo json_encode($dataCreate);
+                            } else {
+                                echo json_encode($answerInsert);
+                            }
+                        }
+                    } else {
+                        echo json_encode($answerParsed);
+                    }
+                } else {
+                    echo json_encode($answerInsert);
+                }
+            } else {
+                echo json_encode($answer);
+            }
+        } else {
+            require_once 'View/404.php';
+        }
     }
 }
