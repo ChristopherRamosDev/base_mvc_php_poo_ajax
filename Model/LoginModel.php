@@ -84,6 +84,17 @@ class LoginModel
             echo $e->getTraceAsString();
         }
     }
+    public function getPassById($id)
+    {
+        try {
+            $this->query = "SELECT pass FROM users where idUser  = :idUser";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute(array(':idUser' => $id));
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
     public function getUserByUser($usuario = "")
     {
         try {

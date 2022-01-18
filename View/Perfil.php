@@ -32,10 +32,11 @@ if (isset($_SESSION['user'])) : ?>
       <div class="main-panel">
         <div class="content-wrapper">
           <!-- content-wrapper ends -->
-          <?php require_once 'includes/datos.php'; ?>
+          <h3>Perfil</h3>
           <!-- partial:partials/_footer.html -->
-          <div class="col-12 mb-xl-0 p-2 mb-5">
+          <div class="col-6  p-2 mb-5">
             <button class="btn btn-success mt-1" id="btnEditInfo" data-toggle="modal" data-target="#exampleModalInfo">Editar info</button>
+            <button class="btn btn-success mt-1" id="btnEditClave" data-toggle="modal" data-target="#exampleModalInfo">Editar clave</button>
           </div>
           <div class="col-12 grid-margin stretch-card" style="width: 80%;margin: 0 auto;">
 
@@ -44,7 +45,7 @@ if (isset($_SESSION['user'])) : ?>
               <div class="card-body" style="padding-bottom: 0;">
 
                 <div class="table-responsive p-3" id="divInfo">
-              
+
                   <!-- <h3 id="nombreInfo">Nombres:</h3>
                   <hr>
                   <h3 id="apellidoInfo">Apellidos:</h3>
@@ -68,7 +69,6 @@ if (isset($_SESSION['user'])) : ?>
                 </div>
                 <div class="modal-body">
                   <form id="frmInfoUpdate">
-                 
                     <div class="form-group">
                       <label for="nombre" class="col-form-label">Nombres:</label>
                       <input type="text" class="form-control" id="nombreUpdateInfo" name="nombreUpdateInfo">
@@ -85,23 +85,51 @@ if (isset($_SESSION['user'])) : ?>
                       <label for="nombre" class="col-form-label">Usuario:</label>
                       <input type="text" class="form-control" id="usuarioInfo" name="usuarioInfo">
                     </div>
+                    <hr>
                     <div class="form-group">
-                      <label for="nombre" class="col-form-label">Clave anterior:</label>
-                      <input type="pass" value="********" class="form-control" id="claveAnterior" name="claveAnterior">
-                    </div>
-                    <div class="form-group">
-                      <label for="nombre" class="col-form-label">Nueva Clave:</label>
-                      <input type="pass" value="********" class="form-control" id="newPass" name="newPass">
-                    </div>
-                    <div class="form-group">
-                      <label for="nombre" class="col-form-label">Repetir nueva clave:</label>
-                      <input type="pass"  value="********" class="form-control" id="repeatPass" name="repeatPass">
+                      <label for="nombre" class="col-form-label">Para editar los datos ingrese su clave anterior:</label>
+                      <input type="password" placeholder="********"  class="form-control" id="claveAnterior" name="claveAnterior">
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                   <button id="updateInfo" type="button" class="btn btn-primary">Editar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade" id="updateModalInfoPass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="frmInfoUpdatePass">
+                    <div class="form-group">
+                      <label for="nombre" class="col-form-label">Nueva clave:</label>
+                      <input type="password" placeholder="********" class="form-control" id="nuevaClave" name="nuevaClave">
+                    </div>
+                    <div class="form-group">
+                      <label for="nombre" class="col-form-label">Repetir Clave:</label>
+                      <input type="password" placeholder="********" class="form-control" id="repeteriClave" name="repeteriClave">
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                      <label for="nombre" class="col-form-label">Para editar los datos ingrese su clave anterior:</label>
+                      <input type="password" placeholder="********" class="form-control" id="claveAnteriorEdit" name="claveAnteriorEdit">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                  <button id="updatePass" type="button" class="btn btn-primary">Editar</button>
                 </div>
               </div>
             </div>

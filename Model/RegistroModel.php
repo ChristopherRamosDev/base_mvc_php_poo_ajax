@@ -10,58 +10,12 @@ class RegistroModel
     protected string $usuario;
     protected string $clave;
     protected $conn;
-
-
+    
     public function __construct()
     {
         $db = new DataBase();
         $this->conn = $db->connection();
     }
-    public function getfirstName()
-    {
-        return $this->nombres;
-    }
-    public function getlastName()
-    {
-        return $this->apellidos;
-    }
-    public function getemail()
-    {
-        return $this->email;
-    }
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
-    public function getPass()
-    {
-        return $this->clave;
-    }
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    public function setfirstName($nombres)
-    {
-        $this->nombres = $nombres;
-    }
-    public function setlastName($apellidos)
-    {
-        $this->apellidos = $apellidos;
-    }
-    public function setemail($email)
-    {
-        $this->email = $email;
-    }
-    public function setUsuario($usuario)
-    {
-        $this->usuario = $usuario;
-    }
-    public function setClave($clave)
-    {
-        $this->clave = $clave;
-    }
-
 
     public function hashPass($pass)
     {
@@ -72,12 +26,6 @@ class RegistroModel
 
     public function insert(string $nombres, string $apellidos, string $email, string $usuario, string $clave)
     {
-        /* $firstName = $this->getfirstName();
-        $lastName = $this->getlastName();
-        $email = $this->getemail();
-        $usuario = $this->getUsuario();
-        $clave = $this->getPass();
-        $hashedPass = $this->hashPass($clave); */
         try {
             $this->query = "INSERT INTO users(`nombres`,`apellidos`,`correo`,`user`,`pass`,`idRol`) VALUES (?,?,?,?,?,?)";
             $stmt = $this->conn->prepare($this->query);
@@ -87,7 +35,6 @@ class RegistroModel
             $stmt->bindValue(4, $usuario, PDO::PARAM_STR);
             $stmt->bindValue(5, $clave, PDO::PARAM_STR);
             $stmt->bindValue(6, 2, PDO::PARAM_INT);
-            /* var_dump($this->query);  */
             return $stmt->execute();
         } catch (Exception $e) {
             echo $e->getTraceAsString();
