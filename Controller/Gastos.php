@@ -12,6 +12,8 @@ class Gastos
     }
     public function index()
     {
+        $presupuestoModel = new PresupuestosModel;
+        $gastosModel = new GastosModel;
         $url = $_GET['url'];
         $url = explode('/', $url);
         if (isset($_SESSION['user'])) {
@@ -20,12 +22,21 @@ class Gastos
                 if (isset($url[2]) && !empty($url[2])) {
                     $isInt = filter_var(($url[2]), FILTER_VALIDATE_INT);
                     if ($isInt) {
-                        $presupuestoModel = new PresupuestosModel;
-                        $_SESSION['idBudget'] = $isInt;
+                        $existsID = $gastosModel->getAllGastos($isInt);
+                        if (!empty($existsID)) {
+                            $_SESSION['idBudget'] = $isInt;
+                            $getOne = $presupuestoModel->getOne($isInt);
+                            $_SESSION['dataBudget'] = $getOne[0];
+                            $_SESSION['idUsaGasto'] = $isInt;
+                            require_once 'View/Gastos.php';
+                        } else {
+                            require_once 'View/404.php';
+                        }
+                        /* $_SESSION['idBudget'] = $isInt;
                         $getOne = $presupuestoModel->getOne($isInt);
                         $_SESSION['dataBudget'] = $getOne[0];
                         $_SESSION['idUsaGasto'] = $isInt;
-                        require_once 'View/Gastos.php';
+                        require_once 'View/Gastos.php'; */
                     } else {
                         require_once 'View/404.php';
                     }
