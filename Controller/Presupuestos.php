@@ -1,11 +1,11 @@
 <?php
 
 require_once 'Model/PresupuestosModel.php';
+require_once 'Model/GastosModel.php';
 class Presupuestos
 {
     public function __construct()
     {
-        
     }
     public function render()
     {
@@ -27,37 +27,6 @@ class Presupuestos
         $getOne = $presupuesto->getOne($id);
         echo json_encode($getOne);
     }
-    /* public function editBudget()
-    {
-        $url = $_GET['url'];
-        $url = explode('/', $url);
-        if (isset($_SESSION['user'])) {
-
-            if ($url[1] == "editBudget") {
-                if (isset($url[2]) && !empty($url[2])) {
-                    $intVal = intval($url[2]);
-                    $val = filter_var($intVal, FILTER_SANITIZE_NUMBER_INT);
-                    $isValid = filter_var($val, FILTER_VALIDATE_INT);
-                    if ($isValid) {
-                        $presupuestoModel = new PresupuestosModel;
-                        $_SESSION['idBudget'] = $val;
-                        $getOne = $presupuestoModel->getOne($val);
-                        $_SESSION['dataBudget'] = $getOne[0];
-                        
-                        require_once 'View/editBudget.php';
-                    } else {
-                        require_once 'View/404.php';
-                    }
-                } else {
-                    require_once 'View/404.php';
-                }
-            } else {
-                require_once 'View/404.php';
-            }
-        } else {
-            require_once 'View/error_login.php';
-        }
-    } */
     public function nuevoPresupuesto()
     {
         require_once 'View/NuevoPresupuesto.php';
@@ -123,6 +92,7 @@ class Presupuestos
         $answer = "Llene todos los datos";
         $answerParsed = "Tipo de dato incorrecto";
         $answerInsert = "Error al agregar nuevo presupuesto, intente correctamente";
+        $answerUpdate = "No puedes actualizar a un presupuesto menor si tus gastos superan el presupuesto inicial";
         $data = $_POST;
 
         if (!empty($data) && isset($_POST)) {
@@ -132,6 +102,7 @@ class Presupuestos
             $_SESSION['idPresupuestoUpdate'] = $idPre;
             if ($nombres !== ""  && $monto !== "" && $idPre !== "") {
                 $presupuestoModel = new PresupuestosModel;
+                $gastosModel = new GastosModel;
                 $data = $_POST;
                 $nombres = $data['nombreUpdate'];
                 $nombres = trim($nombres);
@@ -143,12 +114,26 @@ class Presupuestos
                 if ($montoRecotado !== ".") {
                     $montoValidado = filter_var($montoCorrecto, FILTER_VALIDATE_FLOAT);
                     if ($montoValidado !== false) {
-                        $presupuesto = $presupuestoModel->update($nombres, $montoValidado, $idPre);
-                        if ($presupuesto === true) {
-                            $getOne = $presupuestoModel->getOne($idPre);
-                            echo json_encode($getOne);
-                        } else {
-                            echo json_encode($answerInsert);
+                        $restante = $gastosModel->restante($idPre);
+                        $montoRestante = floatval($restante[0][0]) - floatval($montoCorrecto);
+                        if (is_null($restante[0][0])) {
+                            $presupuesto = $presupuestoModel->update($nombres, $montoValidado, $idPre);
+                            if ($presupuesto === true) {
+                                $getOne = $presupuestoModel->getOne($idPre);
+                                echo json_encode($getOne);
+                            } else {
+                                echo json_encode($answerInsert);
+                            }
+                        } else if (floatval($restante[0][0]) > floatval($montoCorrecto)) {
+                            echo json_encode($answerUpdate);
+                        } else if (floatval($restante[0][0]) <= floatval($montoCorrecto)) {
+                            $presupuesto = $presupuestoModel->update($nombres, $montoValidado, $idPre);
+                            if ($presupuesto === true) {
+                                $getOne = $presupuestoModel->getOne($idPre);
+                                echo json_encode($getOne);
+                            } else {
+                                echo json_encode($answerInsert);
+                            }
                         }
                     } else {
                         echo json_encode($answerParsed);
